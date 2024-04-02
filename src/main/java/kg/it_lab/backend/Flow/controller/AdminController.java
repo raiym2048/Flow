@@ -11,5 +11,4 @@ public class AdminController {
     public String getUsers() {
         return "List of users";
     }
-    //
 }
