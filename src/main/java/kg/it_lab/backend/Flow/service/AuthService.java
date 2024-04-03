@@ -8,4 +8,6 @@ public interface AuthService {
     AuthResponse login(AuthRequest request);
 
     String generateToken(User user);
+
+    void register(AuthRequest request);
 }
