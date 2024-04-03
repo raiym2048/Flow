@@ -66,11 +66,6 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
-    @Override
-    public String generateToken(User user) {
-        Map<String, Object> extraClaims = new HashMap<>();
-        return jwtService.generateToken(extraClaims, user);
-    }
 
     @Override
     public void register(AuthRequest request) {

@@ -7,7 +7,5 @@ import kg.it_lab.backend.Flow.entities.User;
 public interface AuthService {
     AuthResponse login(AuthRequest request);
 
-    String generateToken(User user);
-
     void register(AuthRequest request);
 }
