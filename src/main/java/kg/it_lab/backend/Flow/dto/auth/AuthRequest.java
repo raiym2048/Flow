@@ -1,4 +1,4 @@
-package kg.it_lab.backend.Flow.dto;
+package kg.it_lab.backend.Flow.dto.auth;
 
 
 import lombok.Getter;
