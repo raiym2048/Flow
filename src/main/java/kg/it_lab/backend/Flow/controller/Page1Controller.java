@@ -24,4 +24,6 @@ public class Page1Controller {
         return new Page1();
     }
 
+    //some comments
+
 }
