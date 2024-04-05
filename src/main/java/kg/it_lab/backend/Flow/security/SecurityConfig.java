@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .requestMatchers("/pages/**").permitAll()
                 .requestMatchers("/api/v1/management/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
         return http.build();
     }
     @Bean
