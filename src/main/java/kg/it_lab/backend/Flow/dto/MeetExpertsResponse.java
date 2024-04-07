@@ -12,6 +12,4 @@ public class MeetExpertsResponse {
     private String header2;
 
     List<ExpertResponse> experts;
-
-
 }

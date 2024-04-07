@@ -2,6 +2,7 @@ package kg.it_lab.backend.Flow.controller;
 
 import kg.it_lab.backend.Flow.dto.ExpertsRequest;
 import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
+import kg.it_lab.backend.Flow.dto.StartPageRequest;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,12 @@ public class AdminController {
     @PostMapping("/addMeetExpert")
     public void addMeetExpert(@RequestBody MeetExpertRequest expertsRequest, @RequestHeader("Authorization") String token){
         adminService.addMeetExpert(expertsRequest, token);
+    }
+
+    @PostMapping("/addStartPageData")
+    public void addStartPageData(@RequestBody StartPageRequest startPageRequest,
+            @RequestHeader("Authorization") String token) {
+        adminService.addStartPageData(startPageRequest, token);
     }
 
 }
