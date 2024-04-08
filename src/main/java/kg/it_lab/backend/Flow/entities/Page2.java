@@ -21,12 +21,14 @@ public class Page2 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    String image;
+
     String header;
 
     String footer;
 
-    @OneToMany
-    @JoinColumn(name = "page2_id", referencedColumnName = "id")
-    List<Body> bodies;
+    @ElementCollection
+    List<String> bodies;
+
 
 }
