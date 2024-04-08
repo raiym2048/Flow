@@ -20,10 +20,8 @@ public class StartPageServiceImpl implements StartPageService {
 
     @Override
     public StartPageResponse findFirstByOrderByIdDesc() {
-        Optional<StartPage> pageOptional = repository.findFirstByOrderByIdDesc();
-        if (pageOptional.isEmpty())
-            return null;
-        return mapper.toDto(pageOptional.get());
+        Optional<StartPage> optionalPage = repository.findFirstByOrderByIdDesc();
+        return optionalPage.map(mapper::toDto).orElse(null);
     }
 
 }

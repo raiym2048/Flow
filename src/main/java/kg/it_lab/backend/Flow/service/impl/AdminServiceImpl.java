@@ -16,7 +16,6 @@ import kg.it_lab.backend.Flow.repository.StartPageRepository;
 import kg.it_lab.backend.Flow.repository.UserRepository;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +27,8 @@ import net.minidev.json.parser.ParseException;
 
 import java.util.Base64;
 import java.util.List;
+
+import static net.minidev.json.parser.JSONParser.*;
 
 @Service
 @RequiredArgsConstructor
@@ -49,10 +50,10 @@ public class AdminServiceImpl implements AdminService {
         if (token==null)
             throw new NotFoundException("Token is empty", HttpStatus.NOT_FOUND);
 
-        String[] chunks = token.substring(7).split("\\.");//Bearer
+        String[] chunks = token.substring(7).split("\\.");  //Bearer
         Base64.Decoder decoder = Base64.getUrlDecoder();
 
-        JSONParser jsonParser = new JSONParser();
+        JSONParser jsonParser = new JSONParser(DEFAULT_PERMISSIVE_MODE);
         JSONObject object = null;
         try {
             object = (JSONObject) jsonParser.parse(decoder.decode(chunks[1]));
@@ -100,13 +101,14 @@ public class AdminServiceImpl implements AdminService {
         page.setHeader1(request.getHeader1());
         page.setHeader2(request.getHeader2());
         page.setFooter1(request.getFooter1());
-        page.setFooter2(request.getFooter2());
         page.setBody1(request.getBody1());
         page.setBody2(request.getBody2());
         page.setImage1(request.getImage1());
         page.setImage2(request.getImage2());
         page.setImage3(request.getImage3());
         page.setImage4(request.getImage4());
+
+//        page.setFooterList(request.getFooterList());
 
         startPageRepository.save(page);
     }

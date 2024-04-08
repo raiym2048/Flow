@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Getter
 @Setter
@@ -19,10 +20,13 @@ public class StartPage {
     private String body1;
     private String body2;
     private String footer1;
-    private String footer2;
+
     private String image1;
     private String image2;
     private String image3;
     private String image4;
+
+//    @ElementCollection
+//    //private List<String> footerList;
 
 }
