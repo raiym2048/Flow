@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,9 +32,18 @@ public class Page2ServiceImpl implements Page2Service{
                 .header(page2Request.getHeader())
                 .build();
 
-        System.out.println(page2);
-
         page2Repository.save(page2);
         return Page2Mapper.INSTANCE.toDto(page2);
+    }
+
+    @Override
+    public Optional<Page2Dto> findPage2(Long id) {
+        Optional<Page2> page2find = page2Repository.findById(id);
+
+        if (page2find.isPresent()){
+            Page2Mapper.INSTANCE.toDto(page2find);
+        }
+
+        return null;
     }
 }
