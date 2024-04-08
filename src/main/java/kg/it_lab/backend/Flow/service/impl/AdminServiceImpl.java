@@ -1,19 +1,15 @@
 package kg.it_lab.backend.Flow.service.impl;
 
 
+import kg.it_lab.backend.Flow.dto.CustomerRequest;
 import kg.it_lab.backend.Flow.dto.ExpertsRequest;
 import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
 import kg.it_lab.backend.Flow.dto.Page2Request;
-import kg.it_lab.backend.Flow.entities.Experts;
-import kg.it_lab.backend.Flow.entities.MeetExperts;
-import kg.it_lab.backend.Flow.entities.Page2;
-import kg.it_lab.backend.Flow.entities.User;
+import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.repository.ExpertsRepository;
-import kg.it_lab.backend.Flow.repository.MeetExpertsRepository;
-import kg.it_lab.backend.Flow.repository.Page2Repository;
-import kg.it_lab.backend.Flow.repository.UserRepository;
+import kg.it_lab.backend.Flow.mapper.CustomerMapper;
+import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +21,7 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -35,6 +32,8 @@ public class AdminServiceImpl implements AdminService {
     private final ExpertsRepository expertsRepository;
     private final MeetExpertsRepository meetExpertsRepository;
     private final Page2Repository page2Repository;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -100,5 +99,40 @@ public class AdminServiceImpl implements AdminService {
         page2.setFooter(page2Request.getFooter());
         page2.setBodies(page2Request.getBodies());
         page2Repository.save(page2);
+    }
+
+    @Override
+    public void addCustomer(CustomerRequest customerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Customer customer = Customer.builder()
+                .name(customerRequest.getName())
+                .title(customerRequest.getTitle())
+                .image(customerRequest.getImage())
+                .position(customerRequest.getPosition())
+                .build();
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public void addCustomerAll(List<CustomerRequest> customerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        List<Customer> customers = new ArrayList<>();
+
+        for (CustomerRequest customer : customerRequest){
+            Customer saveCustomer = new Customer();
+            saveCustomer.setName(customer.getName());
+            saveCustomer.setTitle(customer.getTitle());
+            saveCustomer.setPosition(customer.getPosition());
+            saveCustomer.setImage(customer.getImage());
+            customers.add(saveCustomer);
+        }
+
+        customerRepository.saveAll(customers);
     }
 }

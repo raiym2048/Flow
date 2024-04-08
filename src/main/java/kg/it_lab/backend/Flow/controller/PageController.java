@@ -31,7 +31,7 @@ public class PageController {
 
     //some comments
 
-    @GetMapping("/get")
+    @GetMapping("/getPage2")
     public ResponseEntity<?> getPage2() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(pageService.getPage2());

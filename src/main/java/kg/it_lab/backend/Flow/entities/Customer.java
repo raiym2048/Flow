@@ -2,32 +2,26 @@ package kg.it_lab.backend.Flow.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
-
-import java.util.List;
-
 
 @Getter
 @Setter
 @Entity
 @Builder
-@Table(name = "page2")
+@Table(name = "customers")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Page2 {
-
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
+    private String position;
+
     private String image;
 
-    private String header;
-
-    private String footer;
-
-    @ElementCollection
-    private List<String> bodies;
+    private String title;
 
 
 }

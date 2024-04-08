@@ -1,6 +1,7 @@
-package kg.it_lab.backend.Flow.mappers;
+package kg.it_lab.backend.Flow.mapper;
 
 import kg.it_lab.backend.Flow.dto.Page2Dto;
+import kg.it_lab.backend.Flow.dto.Page2Response;
 import kg.it_lab.backend.Flow.entities.Page2;
 
 import java.util.Optional;
@@ -24,6 +25,17 @@ public class Page2Mapper {
     public Page2Dto toDto(Page2 page2) {
 
         return Page2Dto
+                .builder()
+                .footer(page2.getFooter())
+                .image(page2.getImage())
+                .header(page2.getHeader())
+                .bodies(page2.getBodies())
+                .build();
+    }
+
+    public Page2Response toResponse(Page2 page2) {
+
+        return Page2Response
                 .builder()
                 .footer(page2.getFooter())
                 .image(page2.getImage())

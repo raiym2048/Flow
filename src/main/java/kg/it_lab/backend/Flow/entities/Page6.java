@@ -6,28 +6,23 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
-
 @Getter
 @Setter
 @Entity
 @Builder
-@Table(name = "page2")
+@Table(name = "page6")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Page2 {
-
+public class Page6 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String image;
 
     private String header;
 
-    private String footer;
+    @OneToMany
+    private List<Customer> customers;
 
-    @ElementCollection
-    private List<String> bodies;
+    private String commentText;
 
 
 }

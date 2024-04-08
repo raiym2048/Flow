@@ -1,13 +1,17 @@
 package kg.it_lab.backend.Flow.controller;
 
+import kg.it_lab.backend.Flow.dto.CustomerRequest;
 import kg.it_lab.backend.Flow.dto.ExpertsRequest;
 import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
 import kg.it_lab.backend.Flow.dto.Page2Request;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -32,8 +36,27 @@ public class AdminController {
     }
 
     @PostMapping("/addPage2")
-    public void addPage2(@RequestBody Page2Request page2Request , @RequestHeader("Authorization") String token){
+    public ResponseEntity<?> addPage2(@RequestBody Page2Request page2Request, @RequestHeader("Authorization") String token){
         adminService.addPage2(page2Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addCustomers")
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, @RequestHeader("Authorization") String token){
+        adminService.addCustomer(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addCustomersAll")
+    public ResponseEntity<?> addCustomerAll(@RequestBody List<CustomerRequest> customerRequest, @RequestHeader("Authorization") String token){
+        adminService.addCustomerAll(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
     }
 
 }

@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/body/**").permitAll()
                         .requestMatchers("/pages2/**").permitAll()
+                        .requestMatchers("/customer/**").permitAll()
                 .requestMatchers("/pages/**").permitAll()
                 .requestMatchers("/api/v1/management/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
