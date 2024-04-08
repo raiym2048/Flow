@@ -10,13 +10,12 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Page1 {
-
+public class Experts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String h1;
-    private String body1;
-    private String body2;
+    private String photo;
+    private String name;
+    private String position;
 }
