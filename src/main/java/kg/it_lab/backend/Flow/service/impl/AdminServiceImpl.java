@@ -99,11 +99,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addCustomer(CustomerRequest customerRequest) {
-//        User admin = getUsernameFromToken(token);
-//        if (!admin.getRole().equals(Role.ADMIN)){
-//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-//        }
+    public void addCustomer(CustomerRequest customerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         Customer customer = Customer.builder()
                 .name(customerRequest.getName())
                 .title(customerRequest.getTitle())
@@ -134,11 +134,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addPage6(Page6Request page6Requests) {
-//        User admin = getUsernameFromToken(token);
-//        if (!admin.getRole().equals(Role.ADMIN)){
-//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-//        }
+    public void addPage6(Page6Request page6Requests, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         List<Customer> customers = customerRepository.findAll();
         Page6 page6 = new Page6();
         page6.setHeader(page6Requests.getHeader());
