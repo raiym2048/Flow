@@ -2,7 +2,6 @@ package kg.it_lab.backend.Flow.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
@@ -14,7 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Page6 {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String header;
@@ -23,6 +24,5 @@ public class Page6 {
     private List<Customer> customers;
 
     private String commentText;
-
 
 }

@@ -23,5 +23,8 @@ public class Customer {
 
     private String title;
 
+//    @ManyToOne
+//    private Page6 page6;
+
 
 }

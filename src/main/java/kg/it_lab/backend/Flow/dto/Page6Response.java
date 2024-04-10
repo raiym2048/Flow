@@ -16,7 +16,7 @@ public class Page6Response {
 
      String header;
 
-     List<Customer> customers;
+     List<CustomerResponse> customers;
 
      String commentText;
 }

@@ -1,9 +1,6 @@
 package kg.it_lab.backend.Flow.controller;
 
-import kg.it_lab.backend.Flow.dto.CustomerRequest;
-import kg.it_lab.backend.Flow.dto.ExpertsRequest;
-import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
-import kg.it_lab.backend.Flow.dto.Page2Request;
+import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +41,8 @@ public class AdminController {
     }
 
     @PostMapping("/addCustomers")
-    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, @RequestHeader("Authorization") String token){
-        adminService.addCustomer(customerRequest, token);
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest){
+        adminService.addCustomer(customerRequest);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
@@ -54,6 +51,14 @@ public class AdminController {
     @PostMapping("/addCustomersAll")
     public ResponseEntity<?> addCustomerAll(@RequestBody List<CustomerRequest> customerRequest, @RequestHeader("Authorization") String token){
         adminService.addCustomerAll(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage6")
+    public ResponseEntity<?> addPage6(@RequestBody Page6Request page6Requests){
+        adminService.addPage6(page6Requests);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");

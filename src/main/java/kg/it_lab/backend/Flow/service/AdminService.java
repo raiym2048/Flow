@@ -1,9 +1,6 @@
 package kg.it_lab.backend.Flow.service;
 
-import kg.it_lab.backend.Flow.dto.CustomerRequest;
-import kg.it_lab.backend.Flow.dto.ExpertsRequest;
-import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
-import kg.it_lab.backend.Flow.dto.Page2Request;
+import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 
 import java.util.List;
@@ -19,7 +16,9 @@ public interface AdminService {
 
     void addPage2(Page2Request page2Request, String token);
 
-    void addCustomer(CustomerRequest customerRequest, String token);
+    void addCustomer(CustomerRequest customerRequest);
 
     void addCustomerAll(List<CustomerRequest> customerRequest, String token);
+
+    void addPage6(Page6Request page6Requests);
 }

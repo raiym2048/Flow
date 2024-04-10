@@ -1,6 +1,5 @@
 package kg.it_lab.backend.Flow.controller;
 
-import kg.it_lab.backend.Flow.dto.MeetExpertsResponse;
 import kg.it_lab.backend.Flow.entities.Page1;
 import kg.it_lab.backend.Flow.repository.Page1Repository;
 import kg.it_lab.backend.Flow.service.PageService;
@@ -35,6 +34,12 @@ public class PageController {
     public ResponseEntity<?> getPage2() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(pageService.getPage2());
+    }
+
+    @GetMapping("/getPage6")
+    public ResponseEntity<?> getPage6() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(pageService.getPage6());
     }
 
 }
