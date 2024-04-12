@@ -20,6 +20,6 @@ public class Page8 {
     private String builder;
 
     @OneToMany
-    List<Answer> answer;
+    private List<Answer> answer;
 
 }

@@ -1,10 +1,13 @@
 package kg.it_lab.backend.Flow.service.impl;
 
 
+import jakarta.transaction.Transactional;
 import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
+import kg.it_lab.backend.Flow.mapper.CustomerMapper;
+import kg.it_lab.backend.Flow.mapper.impl.CustomerMapperImpl;
 import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,7 @@ public class AdminServiceImpl implements AdminService {
     private final Page6Repository page6Repository;
     private final AnswerRepository answerRepository;
     private final Page8Repository page8Repository;
+    private final CustomerMapperImpl customerMapperImpl;
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -98,13 +102,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addCustomer(CustomerRequest customerRequest, String token) {
-        User admin = getUsernameFromToken(token);
-        if (!admin.getRole().equals(Role.ADMIN)){
-            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-        }
+    public void addCustomer(CustomerRequest customerRequest) {
+//        User admin = getUsernameFromToken(token);
+//        if (!admin.getRole().equals(Role.ADMIN)){
+//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+//        }
         Customer customer = Customer.builder()
-                .name(customerRequest.getName())
+                .name(customerRequest.getName().trim())
                 .title(customerRequest.getTitle())
                 .image(customerRequest.getImage())
                 .position(customerRequest.getPosition())
@@ -174,5 +178,29 @@ public class AdminServiceImpl implements AdminService {
                 .answer(answers)
                 .build();
         page8Repository.save(page8);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomer(String name) {
+        customerRepository.deleteByName(name);
+    }
+
+    @Override
+    public CustomerResponse updateCustomer(CustomerRequestUpdate customerRequest) {
+
+        System.out.println("NAME : " + customerRequest.getNameDelete());
+        System.out.println(customerRequest);
+
+        Customer customer = customerRepository.findByName(customerRequest.getNameDelete());
+
+        customer.setName(customerRequest.getNameUpdate());
+        customer.setTitle(customerRequest.getTitle());
+        customer.setPosition(customerRequest.getPosition());
+        customer.setImage(customerRequest.getImage());
+
+        customerRepository.save(customer);
+
+        return customerMapperImpl.toDto(customer);
     }
 }

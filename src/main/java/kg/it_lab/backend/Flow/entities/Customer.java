@@ -27,4 +27,14 @@ public class Customer {
 //    private Page6 page6;
 
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }

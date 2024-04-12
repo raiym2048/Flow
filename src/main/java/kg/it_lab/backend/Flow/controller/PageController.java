@@ -42,4 +42,10 @@ public class PageController {
                 .body(pageService.getPage6());
     }
 
+    @GetMapping("/getPage8")
+    public ResponseEntity<?> getPage8() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(pageService.getPage8());
+    }
+
 }

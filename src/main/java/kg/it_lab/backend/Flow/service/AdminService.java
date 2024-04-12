@@ -16,7 +16,7 @@ public interface AdminService {
 
     void addPage2(Page2Request page2Request, String token);
 
-    void addCustomer(CustomerRequest customerRequest, String token);
+    void addCustomer(CustomerRequest customerRequest);
 
     void addCustomerAll(List<CustomerRequest> customerRequest, String token);
 
@@ -25,4 +25,9 @@ public interface AdminService {
     void addAnswer(AnswerRequest answerRequest, String token);
 
     void addPage8(Page8Request page8Request, String token);
+
+    void deleteCustomer(String name);
+
+    CustomerResponse updateCustomer(CustomerRequestUpdate customerRequest);
+
 }

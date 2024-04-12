@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Page8Repository extends JpaRepository<Page8, Long> {
+
+    Page8 findFirstByOrderByIdDesc();
 }

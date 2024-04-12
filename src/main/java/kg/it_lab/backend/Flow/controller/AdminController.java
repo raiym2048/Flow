@@ -4,6 +4,7 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +42,27 @@ public class AdminController {
     }
 
     @PostMapping("/addCustomers")
-    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, String token){
-        adminService.addCustomer(customerRequest, token);
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest){
+        adminService.addCustomer(customerRequest);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/deleteCustomers")
+    public ResponseEntity<?> deleteCustomer(@RequestParam("name") String name){
+        adminService.deleteCustomer(name);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PutMapping("/updateCustomers")
+    public ResponseEntity<?> updateCustomer(@RequestBody CustomerRequestUpdate customerRequest){
+        adminService.updateCustomer(customerRequest);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n Customer is name = " + customerRequest.getNameDelete() + "update to Customer" + customerRequest.getNameUpdate());
     }
 
     @PostMapping("/addCustomersAll")
