@@ -5,10 +5,8 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.mapper.CustomerMapper;
 import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
-import kg.it_lab.backend.Flow.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,8 +27,9 @@ public class AdminServiceImpl implements AdminService {
     private final MeetExpertsRepository meetExpertsRepository;
     private final Page2Repository page2Repository;
     private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
     private final Page6Repository page6Repository;
+    private final AnswerRepository answerRepository;
+    private final Page8Repository page8Repository;
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -146,5 +145,34 @@ public class AdminServiceImpl implements AdminService {
         page6.setCustomers(customers);
 
         page6Repository.save(page6);
+    }
+
+    @Override
+    public void addAnswer(AnswerRequest answerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Answer answer = Answer.builder()
+                .answerQuestion(answerRequest.getAnswerQuestion())
+                .answerText(answerRequest.getAnswerText())
+                .build();
+
+        answerRepository.save(answer);
+
+    }
+
+    @Override
+    public void addPage8(Page8Request page8Request, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        List<Answer> answers = answerRepository.findAll();
+        Page8 page8 = Page8.builder()
+                .builder(page8Request.getBuilder())
+                .answer(answers)
+                .build();
+        page8Repository.save(page8);
     }
 }

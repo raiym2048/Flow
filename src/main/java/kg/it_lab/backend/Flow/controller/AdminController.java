@@ -41,7 +41,7 @@ public class AdminController {
     }
 
     @PostMapping("/addCustomers")
-    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, @RequestHeader("Authorization") String token){
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, String token){
         adminService.addCustomer(customerRequest, token);
 
         return ResponseEntity
@@ -57,8 +57,24 @@ public class AdminController {
     }
 
     @PostMapping("/addPage6")
-    public ResponseEntity<?> addPage6(@RequestBody Page6Request page6Requests, @RequestHeader("Authorization") String token){
+    public ResponseEntity<?> addPage6(@RequestBody Page6Request page6Requests, String token){
         adminService.addPage6(page6Requests, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addAnswer")
+    public ResponseEntity<?> addAnswer(@RequestBody AnswerRequest answerRequest, String token){
+        adminService.addAnswer(answerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage8")
+    public ResponseEntity<?> addPage8(@RequestBody Page8Request page8Request, String token){
+        adminService.addPage8(page8Request, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");

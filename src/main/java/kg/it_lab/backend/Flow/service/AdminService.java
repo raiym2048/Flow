@@ -21,4 +21,8 @@ public interface AdminService {
     void addCustomerAll(List<CustomerRequest> customerRequest, String token);
 
     void addPage6(Page6Request page6Requests, String token);
+
+    void addAnswer(AnswerRequest answerRequest, String token);
+
+    void addPage8(Page8Request page8Request, String token);
 }
