@@ -6,7 +6,6 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.mapper.AnswerMapper;
 import kg.it_lab.backend.Flow.mapper.impl.AnswerMapperImpl;
 import kg.it_lab.backend.Flow.mapper.impl.CustomerMapperImpl;
 import kg.it_lab.backend.Flow.repository.*;
@@ -154,11 +153,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addAnswer(AnswerRequest answerRequest) {
-//        User admin = getUsernameFromToken(token);
-//        if (!admin.getRole().equals(Role.ADMIN)){
-//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-//        }
+    public void addAnswer(AnswerRequest answerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         Answer answer = Answer.builder()
                 .answerQuestion(answerRequest.getAnswerQuestion())
                 .answerText(answerRequest.getAnswerText())
