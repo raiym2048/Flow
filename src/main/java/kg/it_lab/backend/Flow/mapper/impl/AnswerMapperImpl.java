@@ -19,7 +19,7 @@ public class AnswerMapperImpl implements AnswerMapper {
         return answerResponses;
     }
 
-    private AnswerResponse toDto(Answer answer){
+    public AnswerResponse toDto(Answer answer){
         AnswerResponse answerResponse = new AnswerResponse();
         answerResponse.setAnswerQuestion(answer.getAnswerQuestion());
         answerResponse.setAnswerText(answer.getAnswerText());

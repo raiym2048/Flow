@@ -6,7 +6,8 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.mapper.CustomerMapper;
+import kg.it_lab.backend.Flow.mapper.AnswerMapper;
+import kg.it_lab.backend.Flow.mapper.impl.AnswerMapperImpl;
 import kg.it_lab.backend.Flow.mapper.impl.CustomerMapperImpl;
 import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
@@ -34,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
     private final AnswerRepository answerRepository;
     private final Page8Repository page8Repository;
     private final CustomerMapperImpl customerMapperImpl;
+    private final AnswerMapperImpl answerMapperImpl;
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -102,11 +104,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addCustomer(CustomerRequest customerRequest) {
-//        User admin = getUsernameFromToken(token);
-//        if (!admin.getRole().equals(Role.ADMIN)){
-//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-//        }
+    public void addCustomer(CustomerRequest customerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         Customer customer = Customer.builder()
                 .name(customerRequest.getName().trim())
                 .title(customerRequest.getTitle())
@@ -152,11 +154,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addAnswer(AnswerRequest answerRequest, String token) {
-        User admin = getUsernameFromToken(token);
-        if (!admin.getRole().equals(Role.ADMIN)){
-            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
-        }
+    public void addAnswer(AnswerRequest answerRequest) {
+//        User admin = getUsernameFromToken(token);
+//        if (!admin.getRole().equals(Role.ADMIN)){
+//            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+//        }
         Answer answer = Answer.builder()
                 .answerQuestion(answerRequest.getAnswerQuestion())
                 .answerText(answerRequest.getAnswerText())
@@ -182,16 +184,20 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void deleteCustomer(String name) {
+    public void deleteCustomer(String name, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         customerRepository.deleteByName(name);
     }
 
     @Override
-    public CustomerResponse updateCustomer(CustomerRequestUpdate customerRequest) {
-
-        System.out.println("NAME : " + customerRequest.getNameDelete());
-        System.out.println(customerRequest);
-
+    public CustomerResponse updateCustomer(CustomerRequestUpdate customerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         Customer customer = customerRepository.findByName(customerRequest.getNameDelete());
 
         customer.setName(customerRequest.getNameUpdate());
@@ -203,4 +209,51 @@ public class AdminServiceImpl implements AdminService {
 
         return customerMapperImpl.toDto(customer);
     }
+
+    @Override
+    public void updatePage2(Page2Request page2Request, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page2 page2 = page2Repository.findFirstByOrderByIdDesc();
+        page2.setImage(page2Request.getImage());
+        page2.setFooter(page2Request.getFooter());
+        page2.setHeader(page2Request.getHeader());
+        page2.setBodies(page2Request.getBodies());
+
+        page2Repository.save(page2);
+    }
+
+    @Override
+    public void updatePage6(Page6Request page6Request, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page6 page6 = page6Repository.findFirstByOrderByIdDesc();
+        page6.setHeader(page6Request.getHeader());
+        page6.setCommentText(page6.getCommentText());
+
+        page6Repository.save(page6);
+    }
+
+    @Override
+    @Transactional
+    public AnswerResponse updateAnswer(AnswerRequestUpdate answerRequestUpdate, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        answerRepository.findByAnswerQuestionAndAnswerText
+                        (answerRequestUpdate.getAnswerQuestionDelete(), answerRequestUpdate.getAnswerTextDelete());
+        Answer answer = Answer.builder()
+                .answerText(answerRequestUpdate.getAnswerTextUpdate())
+                .answerQuestion(answerRequestUpdate.getAnswerQuestionUpdate())
+                .build();
+        answerRepository.save(answer);
+
+        return answerMapperImpl.toDto(answerRepository.findFirstByOrderByIdDesc());
+    }
+
 }
