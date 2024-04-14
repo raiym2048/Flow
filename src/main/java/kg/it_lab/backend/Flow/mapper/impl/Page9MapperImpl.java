@@ -22,5 +22,6 @@ public class Page9MapperImpl implements Page9Mapper {
         page9Response.setBlogs(blogMapper.toDtoS(blogRepository.findAll()));
 
         return page9Response;
+
     }
 }
