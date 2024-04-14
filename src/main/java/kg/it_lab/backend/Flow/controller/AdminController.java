@@ -118,4 +118,35 @@ public class AdminController {
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
     }
+
+    @PostMapping("/addBlog")
+    public ResponseEntity<?> addBlog(@RequestBody BlogRequest blogRequest){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(adminService.addBlog(blogRequest));
+    }
+
+    @PutMapping("/deleteBlog")
+    public ResponseEntity<?> deleteBlog(@RequestBody BlogRequest blogRequest){
+        adminService.deleteBlog(blogRequest);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n Delete Blog = {" + blogRequest + "}");
+    }
+
+    @PutMapping("/updateBlog")
+    public ResponseEntity<?> updateBlog(@RequestBody BlogRequestUpdate blogRequestUpdate){
+        adminService.updateBlog(blogRequestUpdate);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage9")
+    public ResponseEntity<?> addPage9(@RequestBody Page9Request page9Request){
+        adminService.addPage9(page9Request);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
 }

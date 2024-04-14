@@ -2,11 +2,15 @@ package kg.it_lab.backend.Flow.service.impl;
 
 
 import jakarta.transaction.Transactional;
+import kg.it_lab.backend.Flow.config.DateFormat;
 import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
+import kg.it_lab.backend.Flow.mapper.BlogMapper;
+import kg.it_lab.backend.Flow.mapper.Page9Mapper;
 import kg.it_lab.backend.Flow.mapper.impl.AnswerMapperImpl;
+import kg.it_lab.backend.Flow.mapper.impl.BlogMapperImpl;
 import kg.it_lab.backend.Flow.mapper.impl.CustomerMapperImpl;
 import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
@@ -35,6 +39,12 @@ public class AdminServiceImpl implements AdminService {
     private final Page8Repository page8Repository;
     private final CustomerMapperImpl customerMapperImpl;
     private final AnswerMapperImpl answerMapperImpl;
+    private final BlogRepository blogRepository;
+    private final BlogMapper blogMapper;
+    private final BlogMapperImpl blogMapperImpl;
+    private final CustomerBlogRepository customerBlogRepository;
+    private final Page9Mapper page9Mapper;
+    private final Page9Repository page9repository;
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -253,6 +263,132 @@ public class AdminServiceImpl implements AdminService {
         answerRepository.save(answer);
 
         return answerMapperImpl.toDto(answerRepository.findFirstByOrderByIdDesc());
+    }
+
+    @Override
+    public BlogResponse addBlog(BlogRequest blogRequest) {
+
+        CustomerBlog customerBlog = new CustomerBlog();
+        customerBlog.setName(blogRequest.getCustomerBlog().getName());
+        customerBlog.setImage(blogRequest.getCustomerBlog().getImage());
+        Blog blog = Blog
+                .builder()
+                .customerBlog(customerBlog)
+                .image(blogRequest.getImage())
+                .dateTime(DateFormat.dateFormatУMD(blogRequest.getDateTime()))
+                .title(blogRequest.getTitle())
+                .build();
+
+        return blogMapperImpl.toDto(blogRepository.save(blog));
+    }
+
+    @Override
+    public void deleteBlog(BlogRequest blogRequest) {
+        List<Blog> blogs = blogRepository.findAll();
+
+        for (Blog blog : blogs){
+            if(blog.getImage().equals(blogRequest.getImage())){
+                blogRepository.delete(blog);
+                break;
+            }
+            if(blog.getTitle().equals(blogRequest.getTitle())){
+                blogRepository.delete(blog);
+                break;
+            }
+            if((blog.getCustomerBlog().getName()).equals(blogRequest.getCustomerBlog().getName())){
+                blogRepository.delete(blog);
+                break;
+            }
+            if((blog.getCustomerBlog().getImage()).equals(blogRequest.getCustomerBlog().getImage())){
+                blogRepository.delete(blog);
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void updateBlog(BlogRequestUpdate blogRequestUpdate) {
+        List<Blog> blogs = blogRepository.findAll();
+
+        for (Blog blog : blogs){
+            if(blog.getImage().equals(blogRequestUpdate.getDeleteText())){
+                CustomerBlog customerBlog = new CustomerBlog();
+                customerBlog.setImage(blog.getCustomerBlog().getImage());
+                customerBlog.setName(blog.getCustomerBlog().getName());
+
+                Blog updateBlog = Blog
+                        .builder()
+                        .dateTime(blog.getDateTime())
+                        .image(blogRequestUpdate.getUpdateText())
+                        .customerBlog(customerBlog)
+                        .title(blog.getTitle())
+                        .build();
+                blogRepository.delete(blog);
+                blogRepository.save(updateBlog);
+                break;
+            }
+            if(blog.getTitle().equals(blogRequestUpdate.getDeleteText())){
+                CustomerBlog customerBlog = new CustomerBlog();
+                customerBlog.setImage(blog.getCustomerBlog().getImage());
+                customerBlog.setName(blog.getCustomerBlog().getName());
+
+                Blog updateBlog = Blog
+                        .builder()
+                        .dateTime(blog.getDateTime())
+                        .image(blog.getImage())
+                        .customerBlog(customerBlog)
+                        .title(blogRequestUpdate.getUpdateText())
+                        .build();
+                blogRepository.delete(blog);
+                blogRepository.save(updateBlog);
+                break;
+            }
+            if((blog.getCustomerBlog().getName()).equals(blogRequestUpdate.getDeleteText())){
+                CustomerBlog customerBlog = new CustomerBlog();
+                customerBlog.setImage(blog.getCustomerBlog().getImage());
+                customerBlog.setName(blogRequestUpdate.getUpdateText());
+
+                customerBlogRepository.delete(blog.getCustomerBlog());
+                Blog updateBlog = Blog
+                        .builder()
+                        .dateTime(blog.getDateTime())
+                        .image(blog.getImage())
+                        .customerBlog(customerBlog)
+                        .title(blog.getTitle())
+                        .build();
+                blogRepository.delete(blog);
+                blogRepository.save(updateBlog);
+                break;
+            }
+            if((blog.getCustomerBlog().getImage()).equals(blogRequestUpdate.getDeleteText())){
+                CustomerBlog customerBlog = new CustomerBlog();
+                customerBlog.setName(blog.getCustomerBlog().getName());
+                customerBlog.setImage(blogRequestUpdate.getUpdateText());
+                Blog updateBlog = Blog
+                        .builder()
+                        .dateTime(blog.getDateTime())
+                        .image(blog.getImage())
+                        .customerBlog(customerBlog)
+                        .title(blog.getTitle())
+                        .build();
+                blogRepository.delete(blog);
+                blogRepository.save(updateBlog);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void addPage9(Page9Request page9Request) {
+        List<Blog> blogs = blogRepository.findAll();
+        Page9 page9 = Page9.builder()
+                .header1(page9Request.getHeader1())
+                .header2(page9Request.getHeader2())
+                .blogs(blogs)
+                .build();
+        page9repository.save(page9);
     }
 
 }

@@ -36,4 +36,11 @@ public interface AdminService {
 
     AnswerResponse updateAnswer(AnswerRequestUpdate answerRequestUpdate, String token);
 
+    BlogResponse addBlog(BlogRequest blogRequest);
+
+    void deleteBlog(BlogRequest blogRequest);
+
+    void updateBlog(BlogRequestUpdate blogRequestUpdate);
+
+    void addPage9(Page9Request page9Request);
 }

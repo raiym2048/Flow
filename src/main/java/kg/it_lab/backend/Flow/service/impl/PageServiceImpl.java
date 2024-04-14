@@ -1,14 +1,8 @@
 package kg.it_lab.backend.Flow.service.impl;
 
 import kg.it_lab.backend.Flow.dto.*;
-import kg.it_lab.backend.Flow.mapper.MeetExpertsMapper;
-import kg.it_lab.backend.Flow.mapper.Page2Mapper;
-import kg.it_lab.backend.Flow.mapper.Page6Mapper;
-import kg.it_lab.backend.Flow.mapper.Page8Mapper;
-import kg.it_lab.backend.Flow.repository.MeetExpertsRepository;
-import kg.it_lab.backend.Flow.repository.Page2Repository;
-import kg.it_lab.backend.Flow.repository.Page6Repository;
-import kg.it_lab.backend.Flow.repository.Page8Repository;
+import kg.it_lab.backend.Flow.mapper.*;
+import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.PageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +17,8 @@ public class PageServiceImpl implements PageService {
     private final Page8Repository page8Repository;
     private final Page6Mapper page6Mapper;
     private final Page8Mapper page8Mapper;
+    private final Page9Mapper page9Mapper;
+    private final Page9Repository page9Repository;
 
 
     @Override
@@ -43,5 +39,10 @@ public class PageServiceImpl implements PageService {
     @Override
     public Page8Response getPage8() {
         return page8Mapper.toDto(page8Repository.findFirstByOrderByIdDesc());
+    }
+
+    @Override
+    public Page9Response getPage9() {
+        return page9Mapper.toDto(page9Repository.findFirstByOrderByIdDesc());
     }
 }
