@@ -2,6 +2,7 @@ package kg.it_lab.backend.Flow.service;
 
 import kg.it_lab.backend.Flow.dto.ExpertsRequest;
 import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
+import kg.it_lab.backend.Flow.dto.Page7Request;
 import kg.it_lab.backend.Flow.dto.StartPageRequest;
 import kg.it_lab.backend.Flow.entities.User;
 
@@ -17,4 +18,6 @@ public interface AdminService {
     void addMeetExpert(MeetExpertRequest expertsRequest, String token);
 
     void addStartPageData(StartPageRequest startPageRequest,String token);
+
+    void addPage7Data(Page7Request page7Request, String token);
 }

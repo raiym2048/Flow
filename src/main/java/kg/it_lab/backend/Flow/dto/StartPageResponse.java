@@ -16,6 +16,4 @@ public class StartPageResponse {
     private String image2;
     private String image3;
     private String image4;
-
-//    private List<String> footerList;
 }
