@@ -31,6 +31,9 @@ public class AdminServiceImpl implements AdminService {
     private final StartPageRepository startPageRepository;
     private final Page7Repository page7Repository;
     private final Page4Repository page4Repository;
+    private final AnswerFAQRepository answerFAQRepository;
+    private final FAQRepository faqRepository;
+
 
     @Override
     public List<User> getAllUsers(String token) {
@@ -127,5 +130,26 @@ public class AdminServiceImpl implements AdminService {
         page4Repository.save(page);
     }
 
+    @Override
+    public void addAnswer(AnswerFAQRequest answerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        AnswerFAQ answerFAQ = new AnswerFAQ();
+        answerFAQ.setAnswer(answerRequest.getAnswer());
+        answerFAQ.setQuestion(answerRequest.getQuestion());
+        answerFAQRepository.save(answerFAQ);
+    }
 
+    @Override
+    public void addFAQ(FAQRequest faqRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        FAQ faq = new FAQ();
+        faq.setHeader(faqRequest.getHeader());
+        faqRepository.save(faq);
+    }
 }

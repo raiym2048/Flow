@@ -18,4 +18,6 @@ public interface AdminService {
 
     void addPage7Data(Page7Request page7Request, String token);
     void addPage4Data(Page4Request page4Request, String token);
+    void addAnswer(AnswerFAQRequest answerRequest, String token);
+    void addFAQ(FAQRequest faqRequest, String token);
 }
