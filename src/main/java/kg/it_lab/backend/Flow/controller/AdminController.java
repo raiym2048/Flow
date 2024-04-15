@@ -1,9 +1,6 @@
 package kg.it_lab.backend.Flow.controller;
 
-import kg.it_lab.backend.Flow.dto.ExpertsRequest;
-import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
-import kg.it_lab.backend.Flow.dto.Page7Request;
-import kg.it_lab.backend.Flow.dto.StartPageRequest;
+import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +39,12 @@ public class AdminController {
     public void addPage7(@RequestBody Page7Request page7Request,
                          @RequestHeader("Authorization") String token) {
         adminService.addPage7Data(page7Request, token);
+    }
+
+    @PostMapping("/addPage4")
+    public void addPage4(@RequestBody Page4Request page4Request,
+                         @RequestHeader("Authorization") String token){
+        adminService.addPage4Data(page4Request, token);
     }
 
 }

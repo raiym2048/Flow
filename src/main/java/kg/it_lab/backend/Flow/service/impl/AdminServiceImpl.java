@@ -30,6 +30,7 @@ public class AdminServiceImpl implements AdminService {
     private final MeetExpertsRepository meetExpertsRepository;
     private final StartPageRepository startPageRepository;
     private final Page7Repository page7Repository;
+    private final Page4Repository page4Repository;
 
     @Override
     public List<User> getAllUsers(String token) {
@@ -114,4 +115,17 @@ public class AdminServiceImpl implements AdminService {
         page.setBody(pageRequest.getBody());
         page7Repository.save(page);
     }
+
+    @Override
+    public void addPage4Data(Page4Request pageRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page4 page = new Page4();
+        page.setBody(pageRequest.getBody());
+        page4Repository.save(page);
+    }
+
+
 }
