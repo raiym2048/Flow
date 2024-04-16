@@ -1,19 +1,11 @@
 package kg.it_lab.backend.Flow.service.impl;
 
 
-import kg.it_lab.backend.Flow.dto.ExpertsRequest;
-import kg.it_lab.backend.Flow.dto.MeetExpertRequest;
-import kg.it_lab.backend.Flow.dto.StartPageRequest;
-import kg.it_lab.backend.Flow.entities.Experts;
-import kg.it_lab.backend.Flow.entities.MeetExperts;
-import kg.it_lab.backend.Flow.entities.StartPage;
-import kg.it_lab.backend.Flow.entities.User;
+import kg.it_lab.backend.Flow.dto.*;
+import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.repository.ExpertsRepository;
-import kg.it_lab.backend.Flow.repository.MeetExpertsRepository;
-import kg.it_lab.backend.Flow.repository.StartPageRepository;
-import kg.it_lab.backend.Flow.repository.UserRepository;
+import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,6 +29,12 @@ public class AdminServiceImpl implements AdminService {
     private final ExpertsRepository expertsRepository;
     private final MeetExpertsRepository meetExpertsRepository;
     private final StartPageRepository startPageRepository;
+    private final Page7Repository page7Repository;
+    private final Page4Repository page4Repository;
+    private final AnswerFAQRepository answerFAQRepository;
+    private final FAQRepository faqRepository;
+
+
     @Override
     public List<User> getAllUsers(String token) {
         User admin = getUsernameFromToken(token);
@@ -107,9 +105,51 @@ public class AdminServiceImpl implements AdminService {
         page.setImage2(request.getImage2());
         page.setImage3(request.getImage3());
         page.setImage4(request.getImage4());
-
-//        page.setFooterList(request.getFooterList());
-
         startPageRepository.save(page);
+    }
+
+    @Override
+    public void addPage7Data(Page7Request pageRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page7 page = new Page7();
+        page.setBody(pageRequest.getBody());
+        page7Repository.save(page);
+    }
+
+    @Override
+    public void addPage4Data(Page4Request pageRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page4 page = new Page4();
+        page.setBody(pageRequest.getBody());
+        page4Repository.save(page);
+    }
+
+    @Override
+    public void addAnswer(AnswerFAQRequest answerRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        AnswerFAQ answerFAQ = new AnswerFAQ();
+        answerFAQ.setAnswer(answerRequest.getAnswer());
+        answerFAQ.setQuestion(answerRequest.getQuestion());
+        answerFAQRepository.save(answerFAQ);
+    }
+
+    @Override
+    public void addFAQ(FAQRequest faqRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        FAQ faq = new FAQ();
+        faq.setHeader(faqRequest.getHeader());
+        faqRepository.save(faq);
     }
 }

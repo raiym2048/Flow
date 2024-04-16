@@ -17,6 +17,4 @@ public class StartPageRequest {
     private String image3;
     private String image4;
 
-//    private List<String> footerList;
-
 }
