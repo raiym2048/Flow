@@ -4,5 +4,5 @@ import kg.it_lab.backend.Flow.dto.StartPageResponse;
 import kg.it_lab.backend.Flow.entities.StartPage;
 
 public interface StartPageMapper {
-    StartPageResponse toDto(StartPage entity);
+     StartPageResponse toDto(StartPage entity);
 }

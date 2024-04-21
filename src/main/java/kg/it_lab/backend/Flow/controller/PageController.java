@@ -13,19 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/pages")
 public class PageController {
-    private final Page1Repository page1Repository;
     private final PageService pageService;
-
-    @GetMapping("/page1")
-    public Page1 page1() {
-        Optional<Page1> page1 = page1Repository.findById(1L);
-        if (page1.isPresent()) {
-            return page1.get();
-        }
-        return new Page1();
-    }
-
-    //some comments
 
     @GetMapping("/getPage2")
     public ResponseEntity<?> getPage2() {

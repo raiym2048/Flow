@@ -6,12 +6,11 @@ import kg.it_lab.backend.Flow.mapper.StartPageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
+@Component("specificStartPageMapperImpl")
 public class StartPageMapperImpl implements StartPageMapper {
     @Override
     public StartPageResponse toDto(StartPage entity) {
-        var response = new StartPageResponse();
+        StartPageResponse response = new StartPageResponse();
         response.setHeader1(entity.getHeader1());
         response.setHeader2(entity.getHeader2());
         response.setBody1(entity.getBody1());

@@ -21,6 +21,8 @@ public class StartPage {
     private String footer1;
     private String footer2;
 
-    @ElementCollection //
-    public List<String> images;
+    private String image1;
+    private String image2;
+    private String image3;
+    private String image4;
 }

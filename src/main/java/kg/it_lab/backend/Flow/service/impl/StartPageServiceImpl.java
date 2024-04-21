@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StartPageServiceImpl implements StartPageService {
     private final StartPageRepository repository;
+
     private final StartPageMapper mapper;
 
     @Override
