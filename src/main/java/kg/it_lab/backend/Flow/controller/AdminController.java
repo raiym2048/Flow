@@ -4,8 +4,11 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -29,6 +32,123 @@ public class AdminController {
         adminService.addMeetExpert(expertsRequest, token);
     }
 
+    @PostMapping("/addPage2")
+    public ResponseEntity<?> addPage2(@RequestBody Page2Request page2Request, @RequestHeader("Authorization") String token){
+        adminService.addPage2(page2Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PutMapping("/updatePage2")
+    public ResponseEntity<?> updatePage2(@RequestBody Page2Request page2Request, @RequestHeader("Authorization") String token){
+        adminService.updatePage2(page2Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n updates Page2  = {" + page2Request + "}");
+    }
+
+    @PostMapping("/addCustomers")
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRequest customerRequest, @RequestHeader("Authorization") String token ){
+        adminService.addCustomer(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/deleteCustomers")
+    public ResponseEntity<?> deleteCustomer(@RequestParam("name") String name, @RequestHeader("Authorization") String token){
+        adminService.deleteCustomer(name, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PutMapping("/updateCustomer")
+    public ResponseEntity<?> updateCustomer(@RequestBody CustomerRequestUpdate customerRequest,@RequestHeader("Authorization") String token){
+        adminService.updateCustomer(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n Customer is name = " + customerRequest.getNameDelete() + "update to Customer" + customerRequest.getNameUpdate());
+    }
+
+    @PostMapping("/addCustomersAll")
+    public ResponseEntity<?> addCustomerAll(@RequestBody List<CustomerRequest> customerRequest, @RequestHeader("Authorization") String token){
+        adminService.addCustomerAll(customerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage6")
+    public ResponseEntity<?> addPage6(@RequestBody Page6Request page6Requests, @RequestHeader("Authorization") String token){
+        adminService.addPage6(page6Requests, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+    @PutMapping("/updatePage6")
+    public ResponseEntity<?> updatePage6(@RequestBody Page6Request page6Request,@RequestHeader("Authorization") String token){
+        adminService.updatePage6(page6Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n updates Page2  = {" + page6Request + "}");
+    }
+
+    @PostMapping("/addAnswer")
+    public ResponseEntity<?> addAnswer(@RequestBody AnswerRequest answerRequest, @RequestHeader("Authorization") String token){
+        adminService.addAnswer(answerRequest, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PutMapping("/updateAnswer")
+    public ResponseEntity<?> updateAnswer(@RequestBody AnswerRequestUpdate answerRequestUpdate, @RequestHeader("Authorization") String token){
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(adminService.updateAnswer(answerRequestUpdate, token));
+    }
+
+    @PostMapping("/addPage8")
+    public ResponseEntity<?> addPage8(@RequestBody Page8Request page8Request, @RequestHeader("Authorization") String token){
+        adminService.addPage8(page8Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addBlog")
+    public ResponseEntity<?> addBlog(@RequestBody BlogRequest blogRequest){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(adminService.addBlog(blogRequest));
+    }
+
+    @PutMapping("/deleteBlog")
+    public ResponseEntity<?> deleteBlog(@RequestBody BlogRequest blogRequest){
+        adminService.deleteBlog(blogRequest);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success\n Delete Blog = {" + blogRequest + "}");
+    }
+
+    @PutMapping("/updateBlog")
+    public ResponseEntity<?> updateBlog(@RequestBody BlogRequestUpdate blogRequestUpdate){
+        adminService.updateBlog(blogRequestUpdate);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage9")
+    public ResponseEntity<?> addPage9(@RequestBody Page9Request page9Request){
+        adminService.addPage9(page9Request);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
     @PostMapping("/addStartPageData")
     public void addStartPageData(@RequestBody StartPageRequest startPageRequest,
             @RequestHeader("Authorization") String token) {

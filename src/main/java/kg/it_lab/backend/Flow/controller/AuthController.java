@@ -1,7 +1,7 @@
 package kg.it_lab.backend.Flow.controller;
 
-import kg.it_lab.backend.Flow.dto.AuthRequest;
-import kg.it_lab.backend.Flow.dto.AuthResponse;
+import kg.it_lab.backend.Flow.dto.auth.AuthRequest;
+import kg.it_lab.backend.Flow.dto.auth.AuthResponse;
 import kg.it_lab.backend.Flow.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
