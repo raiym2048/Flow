@@ -19,7 +19,7 @@ public class Page3ServiceImpl implements Page3Service {
     }
 
     @Override
-    public Page3Response page3Experts() {
+    public Page3Response page3Page3() {
         return page3Mapper.toDto(page3Repository.findFirstByOrderByIdDesc());
     }
 }
