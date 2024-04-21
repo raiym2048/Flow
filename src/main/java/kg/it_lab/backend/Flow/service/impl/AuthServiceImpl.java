@@ -1,7 +1,7 @@
 package kg.it_lab.backend.Flow.service.impl;
 
-import kg.it_lab.backend.Flow.dto.AuthRequest;
-import kg.it_lab.backend.Flow.dto.AuthResponse;
+import kg.it_lab.backend.Flow.dto.auth.AuthRequest;
+import kg.it_lab.backend.Flow.dto.auth.AuthResponse;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;

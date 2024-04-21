@@ -21,10 +21,6 @@ public class StartPageMapperImpl implements StartPageMapper {
         response.setImage2(entity.getImage2());
         response.setImage3(entity.getImage3());
         response.setImage4(entity.getImage4());
-
-//        response.setFooterList(entity.getFooterList());
-
-
         return response;
     }
 }

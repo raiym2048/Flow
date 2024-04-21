@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthResponse {
-    private String email;
-    private String token;
+public class FAQRequest {
+    private String header;
 }
