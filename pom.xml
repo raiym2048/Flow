@@ -17,7 +17,13 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<!--		flyway-->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 <!--		token -->
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
