@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 public class AuthController {
     private final AuthService authService;
     private final PasswordEncoder passwordEncoder;
