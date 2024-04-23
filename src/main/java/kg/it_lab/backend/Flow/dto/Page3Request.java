@@ -8,5 +8,8 @@ import lombok.Setter;
 public class Page3Request {
     private String header1;
     private String header2;
-    private String body;
+    private String body1;
+    private String body2;
+    private String body3;
+    private String body4;
 }

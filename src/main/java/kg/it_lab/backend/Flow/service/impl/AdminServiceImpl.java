@@ -5,16 +5,11 @@ import jakarta.transaction.Transactional;
 import kg.it_lab.backend.Flow.config.DateFormat;
 import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.*;
-import kg.it_lab.backend.Flow.dto.*;
-import kg.it_lab.backend.Flow.entities.*;
 import kg.it_lab.backend.Flow.enums.Role;
 import kg.it_lab.backend.Flow.exception.NotFoundException;
-import kg.it_lab.backend.Flow.mapper.BlogMapper;
-import kg.it_lab.backend.Flow.mapper.Page9Mapper;
 import kg.it_lab.backend.Flow.mapper.impl.AnswerMapperImpl;
 import kg.it_lab.backend.Flow.mapper.impl.BlogMapperImpl;
 import kg.it_lab.backend.Flow.mapper.impl.CustomerMapperImpl;
-import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.repository.*;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -45,16 +40,15 @@ public class AdminServiceImpl implements AdminService {
     private final CustomerMapperImpl customerMapperImpl;
     private final AnswerMapperImpl answerMapperImpl;
     private final BlogRepository blogRepository;
-    private final BlogMapper blogMapper;
     private final BlogMapperImpl blogMapperImpl;
     private final CustomerBlogRepository customerBlogRepository;
-    private final Page9Mapper page9Mapper;
     private final Page9Repository page9repository;
     private final StartPageRepository startPageRepository;
     private final Page7Repository page7Repository;
     private final Page4Repository page4Repository;
     private final AnswerFAQRepository answerFAQRepository;
     private final FAQRepository faqRepository;
+    private final Page3Repository page3Repository;
 
 
     @Override
@@ -173,6 +167,34 @@ public class AdminServiceImpl implements AdminService {
         FAQ faq = new FAQ();
         faq.setHeader(faqRequest.getHeader());
         faqRepository.save(faq);
+    }
+
+    @Override
+    public void addPage3(Page3Request page3Request, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        Page3 page3 = new Page3();
+        page3.setBody1(page3Request.getBody1());
+        page3.setBody2(page3Request.getBody2());
+        page3.setBody3(page3Request.getBody3());
+        page3.setBody4(page3Request.getBody4());
+        page3.setHeader1(page3Request.getHeader1());
+        page3.setHeader2(page3Request.getHeader2());
+
+        page3Repository.save(page3);
+    }
+
+    @Override
+    @Transactional
+    public void deleteExpert(String name, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+
+        expertsRepository.deleteByName(name);
     }
 
     @Override
