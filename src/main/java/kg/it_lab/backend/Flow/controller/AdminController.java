@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -29,6 +28,14 @@ public class AdminController {
         adminService.addExpert(expertsRequest, token);
     }
 
+    @PostMapping("/deleteExpert")
+    public ResponseEntity<?> deleteExpert(@RequestParam("name") String name, @RequestHeader("Authorization") String token){
+        adminService.deleteExpert(name, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success delete Expert by name is: " + name);
+    }
+
     @PostMapping("/addMeetExpert")
     public void addMeetExpert(@RequestBody MeetExpertRequest expertsRequest, @RequestHeader("Authorization") String token){
         adminService.addMeetExpert(expertsRequest, token);
@@ -37,6 +44,14 @@ public class AdminController {
     @PostMapping("/addPage2")
     public ResponseEntity<?> addPage2(@RequestBody Page2Request page2Request, @RequestHeader("Authorization") String token){
         adminService.addPage2(page2Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addPage3")
+    public ResponseEntity<?> addPage3(@RequestBody Page3Request page3Request, @RequestHeader("Authorization") String token){
+        adminService.addPage3(page3Request, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");

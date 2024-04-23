@@ -6,8 +6,6 @@ import kg.it_lab.backend.Flow.entities.Page3;
 import java.util.List;
 
 public interface Page3Mapper {
-    List<Page3Response> toDtoS(List<Page3> all);
 
-
-    Page3Response toDto(Page3 firstByOrderByIdDesc);
+    Page3Response toDto(Page3 page3);
 }

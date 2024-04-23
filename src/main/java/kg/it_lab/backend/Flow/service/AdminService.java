@@ -50,4 +50,8 @@ public interface AdminService {
     void addPage4Data(Page4Request page4Request, String token);
     void addAnswer(AnswerFAQRequest answerRequest, String token);
     void addFAQ(FAQRequest faqRequest, String token);
+
+    void addPage3(Page3Request page3Request, String token);
+
+    void deleteExpert(String name, String token);
 }

@@ -15,11 +15,6 @@ public class Page3ServiceImpl implements Page3Service {
 
     @Override
     public Page3Response getPage3() {
-        return null;
-    }
-
-    @Override
-    public Page3Response page3Page3() {
         return page3Mapper.toDto(page3Repository.findFirstByOrderByIdDesc());
     }
 }
