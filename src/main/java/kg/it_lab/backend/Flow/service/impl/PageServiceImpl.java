@@ -19,6 +19,7 @@ public class PageServiceImpl implements PageService {
     private final Page8Mapper page8Mapper;
     private final Page9Mapper page9Mapper;
     private final Page9Repository page9Repository;
+    private final Page2Mapper page2Mapper;
 
 
     @Override
@@ -28,7 +29,7 @@ public class PageServiceImpl implements PageService {
 
     @Override
     public Page2Response getPage2() {
-        return Page2Mapper.INSTANCE.toResponse(page2Repository.findFirstByOrderByIdDesc());
+        return page2Mapper.toDto(page2Repository.findFirstByOrderByIdDesc());
     }
 
     @Override

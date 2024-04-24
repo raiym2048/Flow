@@ -49,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
     private final AnswerFAQRepository answerFAQRepository;
     private final FAQRepository faqRepository;
     private final Page3Repository page3Repository;
+    private final BodyPage2Repository bodyPage2Repository;
 
 
     @Override
@@ -198,6 +199,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void addBodyPage2(BodyPage2Dto bodyPage2Dto, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+        BodyPage2 bodyPage2 = new BodyPage2();
+        bodyPage2.setText(bodyPage2Dto.getText());
+        bodyPage2.setTitle(bodyPage2Dto.getTitle());
+
+        bodyPage2Repository.save(bodyPage2);
+    }
+
+    @Override
     public void addPage2(Page2Request page2Request, String token) {
         User admin = getUsernameFromToken(token);
         if (!admin.getRole().equals(Role.ADMIN)){
@@ -207,7 +221,6 @@ public class AdminServiceImpl implements AdminService {
         page2.setImage(page2Request.getImage());
         page2.setHeader(page2Request.getHeader());
         page2.setFooter(page2Request.getFooter());
-        page2.setBodies(page2Request.getBodies());
         page2Repository.save(page2);
     }
 
@@ -328,7 +341,6 @@ public class AdminServiceImpl implements AdminService {
         page2.setImage(page2Request.getImage());
         page2.setFooter(page2Request.getFooter());
         page2.setHeader(page2Request.getHeader());
-        page2.setBodies(page2Request.getBodies());
 
         page2Repository.save(page2);
     }
@@ -365,7 +377,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public BlogResponse addBlog(BlogRequest blogRequest) {
+    public BlogResponse addBlog(BlogRequest blogRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
 
         CustomerBlog customerBlog = new CustomerBlog();
         customerBlog.setName(blogRequest.getCustomerBlog().getName());
@@ -382,7 +398,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteBlog(BlogRequest blogRequest) {
+    public void deleteBlog(BlogRequest blogRequest, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         List<Blog> blogs = blogRepository.findAll();
 
         for (Blog blog : blogs){
@@ -408,7 +428,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void updateBlog(BlogRequestUpdate blogRequestUpdate) {
+    public void updateBlog(BlogRequestUpdate blogRequestUpdate, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         List<Blog> blogs = blogRepository.findAll();
 
         for (Blog blog : blogs){
@@ -480,7 +504,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addPage9(Page9Request page9Request) {
+    public void addPage9(Page9Request page9Request, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
         List<Blog> blogs = blogRepository.findAll();
         Page9 page9 = Page9.builder()
                 .header1(page9Request.getHeader1())

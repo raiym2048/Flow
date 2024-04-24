@@ -16,6 +16,4 @@ public class Page2Request {
 
     String header;
 
-    List<String> bodies;
-
 }

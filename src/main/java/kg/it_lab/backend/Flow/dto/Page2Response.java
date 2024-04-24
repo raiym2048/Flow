@@ -18,5 +18,5 @@ public class Page2Response {
 
     String footer;
 
-    List<String> bodies;
+    List<BodyPage2Dto> bodies;
 }
