@@ -36,13 +36,13 @@ public interface AdminService {
 
     AnswerResponse updateAnswer(AnswerRequestUpdate answerRequestUpdate, String token);
 
-    BlogResponse addBlog(BlogRequest blogRequest);
+    BlogResponse addBlog(BlogRequest blogRequest, String token);
 
-    void deleteBlog(BlogRequest blogRequest);
+    void deleteBlog(BlogRequest blogRequest, String token);
 
-    void updateBlog(BlogRequestUpdate blogRequestUpdate);
+    void updateBlog(BlogRequestUpdate blogRequestUpdate, String token);
 
-    void addPage9(Page9Request page9Request);
+    void addPage9(Page9Request page9Request, String token);
 
     void addStartPageData(StartPageRequest startPageRequest,String token);
 
@@ -54,4 +54,6 @@ public interface AdminService {
     void addPage3(Page3Request page3Request, String token);
 
     void deleteExpert(String name, String token);
+
+    void addBodyPage2(BodyPage2Dto bodyPage2Dto, String token);
 }

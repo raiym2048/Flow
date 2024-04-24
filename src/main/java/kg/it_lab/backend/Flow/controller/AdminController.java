@@ -4,6 +4,7 @@ import kg.it_lab.backend.Flow.dto.*;
 import kg.it_lab.backend.Flow.entities.User;
 import kg.it_lab.backend.Flow.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.patterns.IToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class AdminController {
     }
 
     @PostMapping("/addExpert")
-    public void addExpert(@RequestBody ExpertsRequest expertsRequest, @RequestHeader("Authorization") String token){
+    public void addExpert(@RequestBody ExpertsRequest expertsRequest, @RequestHeader("Authorization") String token ){
         adminService.addExpert(expertsRequest, token);
     }
 
@@ -44,6 +45,14 @@ public class AdminController {
     @PostMapping("/addPage2")
     public ResponseEntity<?> addPage2(@RequestBody Page2Request page2Request, @RequestHeader("Authorization") String token){
         adminService.addPage2(page2Request, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
+    @PostMapping("/addBodyPage2")
+    public ResponseEntity<?> addBodyPage2(@RequestBody BodyPage2Dto bodyPage2Dto, @RequestHeader("Authorization") String token){
+        adminService.addBodyPage2(bodyPage2Dto, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
@@ -137,50 +146,47 @@ public class AdminController {
     }
 
     @PostMapping("/addBlog")
-    public ResponseEntity<?> addBlog(@RequestBody BlogRequest blogRequest){
+    public ResponseEntity<?> addBlog(@RequestBody BlogRequest blogRequest, @RequestHeader("Authorization") String token){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(adminService.addBlog(blogRequest));
+                .body(adminService.addBlog(blogRequest, token));
     }
 
     @PutMapping("/deleteBlog")
-    public ResponseEntity<?> deleteBlog(@RequestBody BlogRequest blogRequest){
-        adminService.deleteBlog(blogRequest);
+    public ResponseEntity<?> deleteBlog(@RequestBody BlogRequest blogRequest, @RequestHeader("Authorization") String token){
+        adminService.deleteBlog(blogRequest, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success\n Delete Blog = {" + blogRequest + "}");
     }
 
     @PutMapping("/updateBlog")
-    public ResponseEntity<?> updateBlog(@RequestBody BlogRequestUpdate blogRequestUpdate){
-        adminService.updateBlog(blogRequestUpdate);
+    public ResponseEntity<?> updateBlog(@RequestBody BlogRequestUpdate blogRequestUpdate, @RequestHeader("Authorization") String token){
+        adminService.updateBlog(blogRequestUpdate, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
     }
 
     @PostMapping("/addPage9")
-    public ResponseEntity<?> addPage9(@RequestBody Page9Request page9Request){
-        adminService.addPage9(page9Request);
+    public ResponseEntity<?> addPage9(@RequestBody Page9Request page9Request, @RequestHeader("Authorization") String token){
+        adminService.addPage9(page9Request, token);
 
         return ResponseEntity
                 .status(HttpStatus.OK).body("Success");
     }
     @PostMapping("/addStartPageData")
-    public void addStartPageData(@RequestBody StartPageRequest startPageRequest,
-            @RequestHeader("Authorization") String token) {
+    public void addStartPageData(@RequestBody StartPageRequest startPageRequest, @RequestHeader("Authorization") String token) {
         adminService.addStartPageData(startPageRequest, token);
     }
 
     @PostMapping("/addPage7")
-    public void addPage7(@RequestBody Page7Request page7Request,
-                         @RequestHeader("Authorization") String token) {
+    public void addPage7(@RequestBody Page7Request page7Request, @RequestHeader("Authorization") String token) {
         adminService.addPage7Data(page7Request, token);
     }
 
     @PostMapping("/addPage4")
-    public void addPage4(@RequestBody Page4Request page4Request,
-                         @RequestHeader("Authorization") String token){
+    public void addPage4(@RequestBody Page4Request page4Request, @RequestHeader("Authorization") String token){
         adminService.addPage4Data(page4Request, token);
     }
 
