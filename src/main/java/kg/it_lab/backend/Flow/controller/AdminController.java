@@ -136,7 +136,6 @@ public class AdminController {
                 .status(HttpStatus.OK)
                 .body(adminService.updateAnswer(answerRequestUpdate, token));
     }
-
     @PostMapping("/addPage8")
     public ResponseEntity<?> addPage8(@RequestBody Page8Request page8Request, @RequestHeader("Authorization") String token){
         adminService.addPage8(page8Request, token);
