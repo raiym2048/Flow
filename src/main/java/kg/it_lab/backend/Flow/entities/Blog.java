@@ -27,6 +27,4 @@ public class Blog {
     @OneToOne(cascade = CascadeType.ALL)
     private CustomerBlog customerBlog;
 
-
-
 }
