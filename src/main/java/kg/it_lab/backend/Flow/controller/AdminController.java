@@ -190,4 +190,12 @@ public class AdminController {
         adminService.addPage4Data(page4Request, token);
     }
 
+    @PostMapping("/addPage11")
+    public ResponseEntity<?> addPage11(@RequestBody Page11Dto page11Dto, @RequestHeader("Authorization") String token){
+        adminService.addPage11(page11Dto, token);
+
+        return ResponseEntity
+                .status(HttpStatus.OK).body("Success");
+    }
+
 }

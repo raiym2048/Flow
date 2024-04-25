@@ -12,4 +12,6 @@ public interface PageService {
     Page8Response getPage8();
 
     Page9Response getPage9();
+
+    Page11Dto getPage11();
 }

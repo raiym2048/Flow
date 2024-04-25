@@ -56,4 +56,6 @@ public interface AdminService {
     void deleteExpert(String name, String token);
 
     void addBodyPage2(BodyPage2Dto bodyPage2Dto, String token);
+
+    void addPage11(Page11Dto page11Dto, String token);
 }

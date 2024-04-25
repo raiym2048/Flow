@@ -50,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
     private final FAQRepository faqRepository;
     private final Page3Repository page3Repository;
     private final BodyPage2Repository bodyPage2Repository;
+    private final Page11Repository page11Repository;
 
 
     @Override
@@ -209,6 +210,21 @@ public class AdminServiceImpl implements AdminService {
         bodyPage2.setTitle(bodyPage2Dto.getTitle());
 
         bodyPage2Repository.save(bodyPage2);
+    }
+
+    @Override
+    public void addPage11(Page11Dto page11Dto, String token) {
+        User admin = getUsernameFromToken(token);
+        if (!admin.getRole().equals(Role.ADMIN)){
+            throw new NotFoundException("User is not admin", HttpStatus.NOT_FOUND);
+        }
+         Page11 page11 = Page11.builder()
+                 .body(page11Dto.getBody())
+                 .emailSender(page11Dto.getEmailSender())
+                 .header(page11Dto.getHeader())
+                 .image(page11Dto.getImage())
+                 .build();
+        page11Repository.save(page11);
     }
 
     @Override
