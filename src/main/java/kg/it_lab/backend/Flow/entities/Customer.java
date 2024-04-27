@@ -19,6 +19,7 @@ public class Customer {
 
     private String position;
 
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     private String title;
