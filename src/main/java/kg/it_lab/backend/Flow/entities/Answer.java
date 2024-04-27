@@ -15,8 +15,10 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String answerQuestion;
 
+    @Column(columnDefinition = "TEXT")
     private String answerText;
 
 }

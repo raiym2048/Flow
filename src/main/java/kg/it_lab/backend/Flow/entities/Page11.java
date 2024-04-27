@@ -1,5 +1,6 @@
 package kg.it_lab.backend.Flow.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -19,6 +20,7 @@ public class Page11 {
 
     private String header;
 
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     private String body;

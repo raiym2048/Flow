@@ -20,6 +20,7 @@ public class Page2 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     private String header;

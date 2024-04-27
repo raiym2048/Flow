@@ -23,6 +23,7 @@ public class Page6 {
     @OneToMany
     private List<Customer> customers;
 
+    @Column(columnDefinition = "TEXT")
     private String commentText;
 
 }
