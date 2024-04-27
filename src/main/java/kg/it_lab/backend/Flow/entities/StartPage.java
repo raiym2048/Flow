@@ -21,8 +21,12 @@ public class StartPage {
     private String footer1;
     private String footer2;
 
+    @Column(columnDefinition = "TEXT")
     private String image1;
+    @Column(columnDefinition = "TEXT")
     private String image2;
+    @Column(columnDefinition = "TEXT")
     private String image3;
+    @Column(columnDefinition = "TEXT")
     private String image4;
 }

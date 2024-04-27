@@ -15,6 +15,7 @@ public class Page3 {
     private Long id;
 
     private String header1;
+    @Column(columnDefinition = "TEXT")
     private String header2;
     private String body1;
     private String body2;
