@@ -1,6 +1,5 @@
 package kg.it_lab.backend.Flow.dto;
 
-import kg.it_lab.backend.Flow.entities.Answer;
 import lombok.Data;
 
 import java.util.List;

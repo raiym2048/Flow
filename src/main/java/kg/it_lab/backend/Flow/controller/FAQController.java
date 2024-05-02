@@ -2,7 +2,6 @@ package kg.it_lab.backend.Flow.controller;
 
 
 import kg.it_lab.backend.Flow.dto.FAQResponse;
-import kg.it_lab.backend.Flow.entities.FAQ;
 import kg.it_lab.backend.Flow.service.FAQService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;

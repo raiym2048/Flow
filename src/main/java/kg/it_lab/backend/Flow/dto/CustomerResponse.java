@@ -1,8 +1,5 @@
 package kg.it_lab.backend.Flow.dto;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.*;
 
 @Getter
