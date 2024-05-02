@@ -2,7 +2,6 @@ package kg.it_lab.backend.Flow.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
